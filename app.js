@@ -26,40 +26,33 @@ var command = argv._[0];
 if(command){
     var zip = (typeof argv.zip != 'undefined' ? argv.zip : null)    
     var city = (typeof argv.city != 'undefined' ? argv.city : null)
-    
-    
+
     var locData = {
         postal : zip,
         city : city
     }
 
-getWeather(locData);
+    getWeather(locData);
 
-    
 }else{
-    location(function(locData){
-    if(!locData){
-        throw new Error('NO_DATA');
-    }
-    
-    try {
-        
-        getWeather(locData);
-    } catch (error) {
-        console.log('ERROR: ' + error.message);
-    }
-
-});
+    getWeather();
 }
 
 
-function getWeather(location) {
+function getWeather(locData) {
 
-weather(location,function(weatherData){
-   console.log(weatherData);
-   
-  });
-  
+if(!locData){
+    location().then(function(locData){
+       return weather(locData); 
+    }).then(function(currentWeather){
+        console.log(currentWeather);
+    });
+}else{
+    weather(locData).then(function(currentWeather){
+        console.log(currentWeather);
+    });
+}
+
 }
 
 
