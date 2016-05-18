@@ -38,8 +38,8 @@ module.exports = function(locData){
         json: true
         }, function(error, repsonse, body){
             
-        if(error){
-            reject('unable to fetch weather');
+        if(error || body.cod === '404'){
+
         }else{
 
             resolve("it's " + body.main.temp + " in " + body.name);

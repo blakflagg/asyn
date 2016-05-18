@@ -46,13 +46,16 @@ if(!locData){
        return weather(locData); 
     }).then(function(currentWeather){
         console.log(currentWeather);
+    },function(error){
+        console.log('error');
     });
 }else{
     weather(locData).then(function(currentWeather){
         console.log(currentWeather);
+    }, function(error){
+        console.log(error);
     });
 }
-
 }
 
 
